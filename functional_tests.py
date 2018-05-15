@@ -28,9 +28,9 @@ class NewVisitorTest(unittest.TestCase):
 		#user wants to remember the list, then sees site has 
 		#generated unique url
 
-
 		#user visits list
 if __name__ == '__main__':
 	unittest.main(warnings='ignore')
 
 browser.quit()
+
