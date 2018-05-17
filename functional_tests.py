@@ -15,7 +15,7 @@ class NewVisitorTest(unittest.TestCase):
 
 	def check_for_row_in_list_table(self, row_text):
 		table = self.browser.find_element_by_id('id_list_table')
-		row = table.find_elements_by_tag_name('tr')
+		rows = table.find_elements_by_tag_name('tr')
 		self.assertIn(row_text, [row.text for row in rows])
 
 
@@ -43,10 +43,11 @@ class NewVisitorTest(unittest.TestCase):
 		#updates and lists her item in a list
 		import time
 		time.sleep(5)
-	
-		table = self.browser.find_element_by_id('id_list_table')
-		rows = table.find_elements_by_tag_name('tr')
-		self.assertIn('1: Buy peacock feathers', [row.text for row in rows])
+		
+		self.check_for_row_in_list_table('1: Buy peacock feathers')
+#		table = self.browser.find_element_by_id('id_list_table')
+#		rows = table.find_elements_by_tag_name('tr')
+#		self.assertIn('1: Buy peacock feathers', [row.text for row in rows])
 #		self.assertTrue(
 #			any(row.text == '1: Buy peacock feathers' for row in rows),
 #			"new to-do item did not appear in table -- it was: \n%s" % (
@@ -59,10 +60,14 @@ class NewVisitorTest(unittest.TestCase):
 		inputbox.send_keys('Use peacock feathers to make a fly')
 		inputbox.send_keys(Keys.ENTER)
 		time.sleep(5)
-		table = self.browser.find_element_by_id('id_list_table')
-		rows = table.find_elements_by_tag_name('tr')
-		self.assertIn('1: Buy peacock feathers', [row.text for row in rows])
-		self.assertIn('2: Use peacock feathers to make a fly', [row.text for row in rows])
+
+		self.check_for_row_in_list_table('2: Use peacock feathers to make a fly')
+		self.check_for_row_in_list_table('1: Buy peacock feathers')
+#		table = self.browser.find_element_by_id('id_list_table')
+#		rows = table.find_elements_by_tag_name('tr')
+
+#		self.assertIn('1: Buy peacock feathers', [row.text for row in rows])
+#		self.assertIn('2: Use peacock feathers to make a fly', [row.text for row in rows])
 
 
 
