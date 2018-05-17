@@ -8,7 +8,8 @@ class NewVisitorTest(unittest.TestCase):
 
 	def setUp(self):
 		self.browser = webdriver.Firefox()
-		self.browser.implicitly_wait(3)	
+		self.browser.implicitly_wait(3)
+
 	def tearDown(self):
 		self.browser.quit()
 
@@ -41,18 +42,30 @@ class NewVisitorTest(unittest.TestCase):
 		inputbox.send_keys(Keys.ENTER)
 		#updates and lists her item in a list
 		import time
-		time.sleep(10)
+		time.sleep(5)
+	
 		table = self.browser.find_element_by_id('id_list_table')
-		row = table.find_elements_by_tag_name('tr')
-		
+		rows = table.find_elements_by_tag_name('tr')
+		self.assertIn('1: Buy peacock feathers', [row.text for row in rows])
+#		self.assertTrue(
+#			any(row.text == '1: Buy peacock feathers' for row in rows),
+#			"new to-do item did not appear in table -- it was: \n%s" % (
+#				table.text,
+#			)
+#		)
+
 		#she is invited to add another, page repdates
 		inputbox = self.browser.find_element_by_id('id_new_item')
 		inputbox.send_keys('Use peacock feathers to make a fly')
 		inputbox.send_keys(Keys.ENTER)
-		
-		self.check_for_row_in_list_table('1: Buy peacock feathers')
-		self.check_for_row_in_list_table('2: Use peacock feathers to make a fly')
-		
+		time.sleep(5)
+		table = self.browser.find_element_by_id('id_list_table')
+		rows = table.find_elements_by_tag_name('tr')
+		self.assertIn('1: Buy peacock feathers', [row.text for row in rows])
+		self.assertIn('2: Use peacock feathers to make a fly', [row.text for row in rows])
+
+
+
 		#user wants to remember the list, then sees site has 
 		#generated unique url
 
@@ -64,5 +77,5 @@ class NewVisitorTest(unittest.TestCase):
 if __name__ == '__main__':
 	unittest.main(warnings='ignore')
 
-browser.quit()
+
 
