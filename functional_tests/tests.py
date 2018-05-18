@@ -40,14 +40,12 @@ class NewVisitorTest(LiveServerTestCase):
         inputbox.send_keys('Buy peacock feathers')
         inputbox.send_keys(Keys.ENTER)
         # updates and lists her item in a list
-        edith_list_url = self.browser.current_url
-        self.assertRegex(edith_list_url, '/lists/.+')
-        self.check_for_row_in_list_table('1: Buy peacock feathers')
-
 
         import time
         time.sleep(5)
-
+        edith_list_url = self.browser.current_url
+        self.assertRegex(edith_list_url, '/lists/.+')
+        self.check_for_row_in_list_table('1: Buy peacock feathers')
 #
         # she is invited to add another, page repdates
         inputbox = self.browser.find_element_by_id('id_new_item')
