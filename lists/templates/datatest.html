@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>datatest</title>
+</head>
+    <h1>Datatest</h1>
+<body>
+<body>
+        <h1>Start a new To-Do list</h1>
+        <form method="POST" action="/lists/test">
+            <input name="item_text" id="id_new_item" placeholder="Enter a Beef Type" />
+            {% csrf_token %}
+        </form>
+
+
+        <table id="id_list_table">
+                {% for item in type %}
+		            <tr><td>{{  forloop.counter }}: {{ item.text }}</td></tr>
+                {% endfor %}
+	    </table>
+        <p></p>
+        <p></p>
+    </body>
+</body>
+</html>
